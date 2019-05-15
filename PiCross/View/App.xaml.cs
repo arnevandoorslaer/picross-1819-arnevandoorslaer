@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Media;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using ViewModel;
 
 namespace View
@@ -15,24 +17,46 @@ namespace View
     /// </summary>
     public partial class App : Application
     {
+        MediaPlayer mediaPlayer;
+        private List<string> songs;
+        private static Random random = new Random();
         protected override void OnStartup(StartupEventArgs e)
         {
+            songs = new List<string>();
+            songs.Add("../leef.mp3");
+            songs.Add("../wii.mp3");
+
             base.OnStartup(e);
 
             Puzzle puzzle = Puzzle.FromRowStrings(
-            "xxxxxxx",
-            "x.....x",
-            "x.....x",
-            "x.....x",
-            "x.....x",
-            "x.....x",
-            "xxxxxxx"
+            "xxxx....x",
+            "...x....x",
+            "...x....x",
+            ".........",
+            "x..x.....",
+            "x..x.....",
+            "x..x.....",
+            "x..x.....",
+            "x..xxx..x"
             );
 
 
             var window = new MainWindow();
             window.DataContext = new GameViewModel(puzzle);
             window.Show();
+
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.MediaEnded += OnMediaEnded;
+            var randomSongs = songs.OrderBy(a => random.Next());
+            mediaPlayer.Open(new Uri((randomSongs.ElementAt(0)).ToString(), UriKind.Relative));
+            mediaPlayer.Play();
+        }
+
+        private void OnMediaEnded(object sender, EventArgs e)
+        {
+            var songsRandomized = songs.OrderBy(a => random.Next());
+            mediaPlayer.Open(new Uri((songsRandomized.ElementAt(0)).ToString(), UriKind.Relative));
+            mediaPlayer.Play();
         }
     }
 }

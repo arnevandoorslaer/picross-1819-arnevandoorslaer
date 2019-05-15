@@ -112,13 +112,13 @@ namespace ViewModel
 
             public void Execute(object parameter)
             {
-                if (_viewModel.square.Contents.Value == Square.UNKNOWN)
+                if (_viewModel.square.Contents.Value == Square.FILLED)
                 {
-                    _viewModel.square.Contents.Value = Square.FILLED;
+                    _viewModel.square.Contents.Value = Square.UNKNOWN;
                 }
                 else
                 {
-                    _viewModel.square.Contents.Value = Square.UNKNOWN;
+                    _viewModel.square.Contents.Value = Square.FILLED;
                 }
             }
         }
@@ -141,7 +141,14 @@ namespace ViewModel
 
             public void Execute(object parameter)
             {
-                  _viewModel.square.Contents.Value = Square.EMPTY;
+                if (_viewModel.square.Contents.Value == Square.EMPTY)
+                {
+                    _viewModel.square.Contents.Value = Square.UNKNOWN;
+                }
+                else
+                {
+                    _viewModel.square.Contents.Value = Square.EMPTY;
+                }
             }
         }
     }

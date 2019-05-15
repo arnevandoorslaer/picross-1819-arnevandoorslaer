@@ -7,6 +7,7 @@
         xmlns:controls="clr-namespace:View.Controls"
         mc:Ignorable="d"
         Title="Picross" WindowStyle="ToolWindow" WindowState="Maximized">
+
     <Window.Background>
         <Binding Path="Completed.Value">
             <Binding.Converter>
@@ -44,7 +45,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Width="32" Height="32" Text="{Binding Value}">
+                                    <TextBlock FontSize="24" Width="32" Height="32" Text="{Binding Value}">
                                         <TextBlock.Foreground>
                                             <Binding Path="IsSatisfied.Value">
                                                 <Binding.Converter>
@@ -68,7 +69,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Width="32" Height="32" Text="{Binding Value}">
+                                    <TextBlock FontSize="24" Width="32" Height="32" Text="{Binding Value}">
                                         <TextBlock.Foreground>
                                             <Binding Path="IsSatisfied.Value">
                                                 <Binding.Converter>
