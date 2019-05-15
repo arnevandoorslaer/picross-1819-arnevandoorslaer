@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Grid = DataStructures.Grid;
+using Size = DataStructures.Size;
+using PiCross;
+using DataStructures;
 
 namespace View
 {

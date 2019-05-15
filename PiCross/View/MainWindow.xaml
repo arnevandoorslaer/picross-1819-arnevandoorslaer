@@ -4,9 +4,94 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
+        xmlns:controls="clr-namespace:View.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="Picross" WindowStyle="ToolWindow" WindowState="Maximized">
+    <Window.Background>
+        <Binding Path="Completed.Value">
+            <Binding.Converter>
+                <local:CompletedConverter notcompleted="#A9A9A9" completed="#98FB98"/>
+            </Binding.Converter>
+        </Binding>
+    </Window.Background>
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid>
+            <controls:PiCrossControl x:Name="picrossControl" Grid="{Binding Grid}" RowConstraints="{Binding RowConstraints}" ColumnConstraints="{Binding ColumnConstraints}">
+                <controls:PiCrossControl.SquareTemplate>
+                    <DataTemplate>
+                        <Rectangle Width="48" Height="48" Stroke="Black">
+                            <Rectangle.Fill>
+                                <Binding Path="Contents.Value">
+                                    <Binding.Converter>
+                                        <local:SquareConverter Empty="White" Filled="Black" Unknown="Gray" />
+                                    </Binding.Converter>
+                                </Binding>
+                            </Rectangle.Fill>
+                            <Rectangle.InputBindings>
+                                <MouseBinding Gesture="LeftClick" Command="{Binding PressLeft}"/>
+                                <MouseBinding Gesture="RightClick" Command="{Binding PressRight}"/>
+                            </Rectangle.InputBindings>
+                        </Rectangle>
+                    </DataTemplate>
+                </controls:PiCrossControl.SquareTemplate>
+                <controls:PiCrossControl.RowConstraintsTemplate>
+                    <DataTemplate>
+                        <ItemsControl ItemsSource="{Binding Values}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="32" Height="32" Text="{Binding Value}">
+                                        <TextBlock.Foreground>
+                                            <Binding Path="IsSatisfied.Value">
+                                                <Binding.Converter>
+                                                    <local:CompletedConverter notcompleted="Red" completed="Green"/>
+                                                </Binding.Converter>
+                                            </Binding>
+                                        </TextBlock.Foreground>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DataTemplate>
+                </controls:PiCrossControl.RowConstraintsTemplate>
+                <controls:PiCrossControl.ColumnConstraintsTemplate>
+                    <DataTemplate>
+                        <ItemsControl ItemsSource="{Binding Values}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="32" Height="32" Text="{Binding Value}">
+                                        <TextBlock.Foreground>
+                                            <Binding Path="IsSatisfied.Value">
+                                                <Binding.Converter>
+                                                    <local:CompletedConverter notcompleted="Red" completed="Green"/>
+                                                </Binding.Converter>
+                                            </Binding>
+                                        </TextBlock.Foreground>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DataTemplate>
+                </controls:PiCrossControl.ColumnConstraintsTemplate>
+            </controls:PiCrossControl>
+        </Grid>
+        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10px">
+            <TextBlock.Text>
+                <Binding Path="Completed.Value">
+                    <Binding.Converter>
+                        <local:CompletedConverter completed="Completed" notcompleted="Not yet completed"/>
+                    </Binding.Converter>
+                </Binding>
+            </TextBlock.Text>
+        </TextBlock>
+    </StackPanel>
 </Window>
