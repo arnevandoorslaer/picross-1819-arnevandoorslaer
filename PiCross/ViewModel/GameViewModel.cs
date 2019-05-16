@@ -12,13 +12,28 @@ using System.Windows.Input;
 
 namespace ViewModel
 {
-    public class GameViewModel : INotifyPropertyChanged
+    public class StartVM
+    {
+        private readonly IGameData gameData;
+
+        public StartVM()
+        {
+            var facade = new PiCrossFacade();
+            gameData = facade.CreateDummyGameData();
+            Puzzles = gameData.PuzzleLibrary.Entries;
+            SelectedPuzzle = Puzzles.ElementAt(0);
+        }
+        public IPuzzleLibraryEntry SelectedPuzzle { get; set; }
+        public IEnumerable<IPuzzleLibraryEntry> Puzzles { get; }
+    }
+
+    public class GameVM : INotifyPropertyChanged
     {
         private readonly IPlayablePuzzle playablePuzzle;
 
         private Cell<bool> _completed;
 
-        public GameViewModel(Puzzle puzzle)
+        public GameVM(Puzzle puzzle)
         {
             var facade = new PiCrossFacade();
             this.playablePuzzle = facade.CreatePlayablePuzzle(puzzle);

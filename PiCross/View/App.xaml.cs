@@ -23,26 +23,12 @@ namespace View
         protected override void OnStartup(StartupEventArgs e)
         {
             songs = new List<string>();
-            songs.Add("../leef.mp3");
             songs.Add("../wii.mp3");
 
             base.OnStartup(e);
 
-            Puzzle puzzle = Puzzle.FromRowStrings(
-            "xxxx....x",
-            "...x....x",
-            "...x....x",
-            ".........",
-            "x..x.....",
-            "x..x.....",
-            "x..x.....",
-            "x..x.....",
-            "x..xxx..x"
-            );
-
-
             var window = new MainWindow();
-            window.DataContext = new GameViewModel(puzzle);
+            window.DataContext = new Navigator();
             window.Show();
 
             mediaPlayer = new MediaPlayer();

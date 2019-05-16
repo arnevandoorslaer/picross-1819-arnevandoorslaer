@@ -130,6 +130,54 @@ namespace PiCross
             }
         }
 
+        private static Puzzle Puzzle7
+        {
+            get
+            {
+                return Puzzle.FromRowStrings(
+                    "x.x",
+                    ".x.",
+                    "x.x"
+                    );
+            }
+        }
+
+        private static Puzzle Puzzle8
+        {
+            get
+            {
+                return Puzzle.FromRowStrings(
+                    "xxx",
+                    "x..",
+                    "xxx"
+                    );
+            }
+        }
+
+        private static Puzzle Puzzle9
+        {
+            get
+            {
+                return Puzzle.FromRowStrings(
+                    ".x.",
+                    "x.x",
+                    ".x."
+                    );
+            }
+        }
+
+        private static Puzzle Puzzle10
+        {
+            get
+            {
+                return Puzzle.FromRowStrings(
+                    "xxx",
+                    "x.x",
+                    "xxx"
+                    );
+            }
+        }
+
         private static InMemoryDatabase.PuzzleLibrary CreateDummyLibrary()
         {
             var library = InMemoryDatabase.PuzzleLibrary.CreateEmpty();
@@ -142,6 +190,10 @@ namespace PiCross
             library.Create( Puzzle4, author );
             library.Create( Puzzle5, author );
             library.Create( Puzzle6, author );
+            library.Create( Puzzle7, author );
+            library.Create( Puzzle8, author );
+            library.Create( Puzzle9, author );
+            library.Create( Puzzle10, author );
 
             return library;
         }
