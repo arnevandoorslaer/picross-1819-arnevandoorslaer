@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="EasyCommand.cs" />
     <Compile Include="CompletedConverter.cs" />
+    <Compile Include="ListConverter.cs" />
     <Compile Include="Navigator.cs" />
     <Compile Include="Screen.cs" />
     <Compile Include="SquareConverter.cs" />

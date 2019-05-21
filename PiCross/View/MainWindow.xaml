@@ -9,34 +9,98 @@
         Title="Picross" WindowStyle="ToolWindow" WindowState="Maximized">
 
     <ContentPresenter Content="{Binding CurrentScreen}">
+
         <ContentPresenter.Resources>
             <DataTemplate DataType="{x:Type local:StartScreen}">
-                <StackPanel>
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="600px">
-                        <Button FontSize="5cm" Command="{Binding Start}">Start</Button>
+                <Grid>
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#d4fc79" Offset="0.5" />
+                            <GradientStop Color="#96e6a1" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel>
+                            <TextBlock Margin="10px" FontSize="45" HorizontalAlignment="Center">
+                                <TextBlock.Text>
+                                    Welcome to Picross!
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <Button HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="3cm"  Width="10cm" Command="{Binding Start}">
+                                <Button.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#d4fc79" Offset="0.5" />
+                                        <GradientStop Color="#96e6a1" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Button.Background>
+                                <Button.Content>
+                                    Start
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel DataContext="{Binding startVM}">
-                        <ListBox ItemsSource="{Binding Puzzles}" SelectedItem="{Binding SelectedPuzzle,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Puzzle.Size, Mode=OneWay}"></TextBlock>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type local:SelectScreen}">
+                <Grid>
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#d4fc79" Offset="0.5" />
+                            <GradientStop Color="#96e6a1" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel>
+                            <Button HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="3cm"  Width="15cm" Command="{Binding Start}">
+                                <Button.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#d4fc79" Offset="0.5" />
+                                        <GradientStop Color="#96e6a1" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Button.Background>
+                                <Button.Content>
+                                    Play Puzzle!
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel DataContext="{Binding selectVM}">
+                            <ListBox HorizontalContentAlignment="Center" Width="15cm" ItemsSource="{Binding Puzzles}" SelectedItem="{Binding SelectedPuzzle,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock TextAlignment="Center">
+                                            <TextBlock.Text>
+                                                <Binding>
+                                                    <Binding.Converter>
+                                                        <local:ListConverter/>
+                                                    </Binding.Converter>
+                                                </Binding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                                <ListBox.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#d4fc79" Offset="0.5" />
+                                        <GradientStop Color="#96e6a1" Offset="1" />
+                                    </LinearGradientBrush>
+                                </ListBox.Background>
+                            </ListBox>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
+                </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:GameScreen}">
-                <StackPanel>
-                    <StackPanel DataContext="{Binding gameVM}" >
-                        <StackPanel.Background>
-                            <Binding Path="Completed.Value">
-                                <Binding.Converter>
-                                    <local:CompletedConverter notcompleted="#A9A9A9" completed="#98FB98"/>
-                                </Binding.Converter>
-                            </Binding>
-                        </StackPanel.Background>
-                        <Grid VerticalAlignment="Center"  HorizontalAlignment="Center">
+                <Grid>
+                <Grid DataContext="{Binding gameVM}">
+                    <Grid.Background>
+                        <Binding Path="Completed.Value">
+                            <Binding.Converter>
+                                <local:CompletedConverter notcompleted="#A9A9A9" completed="#98FB98"/>
+                            </Binding.Converter>
+                        </Binding>
+                    </Grid.Background>
+                    <StackPanel VerticalAlignment="Center" >
+                        <Grid HorizontalAlignment="Center">
                             <controls:PiCrossControl x:Name="picrossControl" Grid="{Binding Grid}" RowConstraints="{Binding RowConstraints}" ColumnConstraints="{Binding ColumnConstraints}">
                                 <controls:PiCrossControl.SquareTemplate>
                                     <DataTemplate>
@@ -115,13 +179,16 @@
                             </TextBlock.Text>
                         </TextBlock>
                     </StackPanel>
-                    <StackPanel VerticalAlignment="Bottom">
-                        <Button FontSize="2cm" Command="{Binding Reset}">RESET</Button>
+                </Grid>
+                <StackPanel VerticalAlignment="Bottom" >
+                    <StackPanel >
+                        <Button FontSize="1cm" Command="{Binding Reset}">RESET</Button>
                     </StackPanel>
-                    <StackPanel VerticalAlignment="Bottom">
-                        <Button FontSize="2cm" Command="{Binding Again}">Play again</Button>
+                    <StackPanel>
+                        <Button FontSize="1cm" Command="{Binding Again}">Solve another puzzle.</Button>
                     </StackPanel>
                 </StackPanel>
+                </Grid>
             </DataTemplate>
         </ContentPresenter.Resources>
     </ContentPresenter>

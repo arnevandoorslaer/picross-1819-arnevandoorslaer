@@ -29,14 +29,26 @@ namespace View
     {
         public StartScreen(Navigator navigator) : base(navigator)
         {
-            startVM = new StartVM();
-            Start = new EasyCommand(() => SwitchTo(new GameScreen(navigator, startVM.SelectedPuzzle.Puzzle)));
+            Start = new EasyCommand(() => SwitchTo(new SelectScreen(navigator)));
         }
 
         public ICommand Start { get; }
 
-        public StartVM startVM { get; }
     }
+
+    public class SelectScreen : Screen
+    {
+        public SelectScreen(Navigator navigator) : base(navigator)
+        {
+            selectVM = new SelectVM();
+            Start = new EasyCommand(() => SwitchTo(new GameScreen(navigator, selectVM.SelectedPuzzle.Puzzle)));
+        }
+
+        public ICommand Start { get; }
+
+        public SelectVM selectVM { get; }
+    }
+
 
     public class GameScreen : Screen
     {
@@ -45,7 +57,7 @@ namespace View
 
             gameVM = new GameVM(puzzle);
             Reset = new EasyCommand(() => SwitchTo(new GameScreen(navigator, puzzle)));
-            Again = new EasyCommand(() => SwitchTo(new StartScreen(navigator)));
+            Again = new EasyCommand(() => SwitchTo(new SelectScreen(navigator)));
         }
 
         public ICommand Again { get; }

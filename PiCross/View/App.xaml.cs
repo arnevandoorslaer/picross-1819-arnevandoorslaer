@@ -24,6 +24,7 @@ namespace View
         {
             songs = new List<string>();
             songs.Add("../wii.mp3");
+            songs.Add("../portal.mp3");
 
             base.OnStartup(e);
 

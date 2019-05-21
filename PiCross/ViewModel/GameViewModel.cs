@@ -12,11 +12,11 @@ using System.Windows.Input;
 
 namespace ViewModel
 {
-    public class StartVM
+    public class SelectVM
     {
         private readonly IGameData gameData;
 
-        public StartVM()
+        public SelectVM()
         {
             var facade = new PiCrossFacade();
             gameData = facade.CreateDummyGameData();
