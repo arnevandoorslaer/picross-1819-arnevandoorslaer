@@ -104,7 +104,7 @@
                             <controls:PiCrossControl x:Name="picrossControl" Grid="{Binding Grid}" RowConstraints="{Binding RowConstraints}" ColumnConstraints="{Binding ColumnConstraints}">
                                 <controls:PiCrossControl.SquareTemplate>
                                     <DataTemplate>
-                                        <Rectangle Width="48" Height="48" Stroke="Black">
+                                        <Rectangle Width="64" Height="64" Stroke="Gray">
                                             <Rectangle.Fill>
                                                 <Binding Path="Contents.Value">
                                                     <Binding.Converter>
@@ -129,7 +129,7 @@
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock FontSize="24" Width="32" Height="32" Text="{Binding Value}">
+                                                    <TextBlock FontSize="48" Width="64" Height="64" Text="{Binding Value}">
                                                         <TextBlock.Foreground>
                                                             <Binding Path="IsSatisfied.Value">
                                                                 <Binding.Converter>
@@ -153,7 +153,7 @@
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock FontSize="24" Width="32" Height="32" Text="{Binding Value}">
+                                                    <TextBlock FontSize="48" Width="64" Height="64" Text="{Binding Value}">
                                                         <TextBlock.Foreground>
                                                             <Binding Path="IsSatisfied.Value">
                                                                 <Binding.Converter>
@@ -169,16 +169,16 @@
                                 </controls:PiCrossControl.ColumnConstraintsTemplate>
                             </controls:PiCrossControl>
                         </Grid>
-                        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10px">
-                            <TextBlock.Text>
-                                <Binding Path="Completed.Value">
-                                    <Binding.Converter>
-                                        <local:CompletedConverter completed="Completed" notcompleted="Not yet completed"/>
-                                    </Binding.Converter>
-                                </Binding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </StackPanel>
+                            <TextBlock FontSize="45" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10px">
+                                <TextBlock.Text>
+                                    <Binding Path="Completed.Value">
+                                        <Binding.Converter>
+                                            <local:CompletedConverter completed="Congratulations!" notcompleted=""/>
+                                        </Binding.Converter>
+                                    </Binding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </StackPanel>
                 </Grid>
                 <StackPanel VerticalAlignment="Bottom" >
                     <StackPanel >
